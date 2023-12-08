@@ -12,7 +12,6 @@ from rclpy.node import Node
 from unmanned_systems_ros2_pkg import TurtleBotNode, quaternion_tools
 from unmanned_systems_ros2_pkg import ProNav
 from pathfinding_library.Obstacle import Obstacle
-from pathfinding_library.Grid import Grid
 
 
 def get_mean_heading_target(heading_list: list) -> float:
@@ -136,23 +135,18 @@ def main() -> None:
         if check_close(turtlebot_2.current_position, evader_position) == True:
             print("Pursuer caught evader")
             break
-        # if time_diff > 15:
-        #     break
+        if time_diff > 15:
+            break
     pursuer_x = [x[0] for x in pursuer_position_history]
     pursuer_y = [x[1] for x in pursuer_position_history]
     evader_x = [x[0] for x in evader_position_history]
     evader_y = [x[1] for x in evader_position_history]
     # plot
-    # fig, ax = plt.subplots()
-    # ax.plot(evader_x, evader_y, "-o", label="evader")
-    # ax.plot(pursuer_x, pursuer_y, "-x", label="pursuer")
-    # ax.set_title("True PN")
-    # ax.legend()
-    plt.plot(evader_x, evader_y, "-o", label="evader")
-    plt.plot(pursuer_x, pursuer_y, "-x", label="pursuer")
-    plt.title("True PN")
-    plt.legend()
-    plt.grid()
+    fig, ax = plt.subplots()
+    ax.plot(evader_x, evader_y, "-o", label="evader")
+    ax.plot(pursuer_x, pursuer_y, "-x", label="pursuer")
+    ax.set_title("True PN")
+    ax.legend()
     plt.show()
 
 
